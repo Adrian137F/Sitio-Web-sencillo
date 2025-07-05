@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitSupplements - Tu Tienda de Suplementos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-image: url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-position: center;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.96);
+            min-height: 100vh;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #004d00, #006600, #228B22);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, #ffffff, #f0f0f0);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            font-weight: bold;
+            color: #004d00;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            animation: pulse 2s ease-in-out infinite;
+            border: 3px solid #00ff00;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        /* OPCIÓN 1: Imagen como logo */
+        .logo-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            display: none; /* Cambiar a 'block' para activar la imagen */
+        }
+        
+        /* OPCIÓN 2: Icono emoji (activo por defecto) */
+        .logo-icon {
+            display: block; /* Cambiar a 'none' cuando uses imagen */
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .header h1 {
+            font-size: 2.8em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+            margin-left: 20px;
+            background: linear-gradient(45deg, #ffffff, #00ff00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 30px;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, #f8f9fa, #e8f5e8);
+            padding: 40px;
+            border-radius: 20px;
+            margin: 30px 0;
+            border: 3px solid #006600;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            text-align: center;
+        }
+
+        .hero-section h2 {
+            color: #004d00;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-section p {
+            font-size: 1.3em;
+            color: #555;
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        .video-section {
+            background: linear-gradient(135deg, #000000, #1a1a1a);
+            padding: 40px;
+            border-radius: 20px;
+            margin: 40px 0;
+            border: 3px solid #00ff00;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            text-align: center;
+        }
+
+        .video-section h2 {
+            color: #00ff00;
+            font-size: 2.3em;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            background: #000;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        .video-container iframe {
+            width: 100%;
+            height: 450px;
+            border: none;
+            border-radius: 15px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .product-card {
+            background: linear-gradient(135deg, #ffffff, #f8f9fa);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            border: 2px solid #006600;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        .product-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+            color: #006600;
+        }
+
+        .product-card h3 {
+            color: #004d00;
+            font-size: 1.4em;
+            margin-bottom: 10px;
+        }
+
+        .product-card p {
+            color: #666;
+            font-size: 1em;
+            line-height: 1.6;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #006600, #004d00);
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            margin: 40px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .cta-section h2 {
+            font-size: 2.2em;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #00ff00, #00cc00);
+            color: #000;
+            padding: 15px 35px;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 1.3em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0, 255, 0, 0.3);
+            margin: 20px 0;
+            text-transform: uppercase;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 255, 0, 0.5);
+            background: linear-gradient(135deg, #00cc00, #009900);
+        }
+
+        .footer {
+            background: linear-gradient(135deg, #000000, #004d00);
+            color: white;
+            padding: 35px;
+            text-align: center;
+            border-radius: 15px;
+            margin-top: 40px;
+            box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .footer-title {
+            font-size: 1.6em;
+            font-weight: bold;
+            color: #00ff00;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+        }
+
+        .footer-name {
+            font-size: 1.4em;
+            color: white;
+            margin: 8px 0;
+        }
+
+        .footer-id {
+            font-size: 1.2em;
+            color: #cccccc;
+            margin: 8px 0;
+        }
+
+        .footer-email {
+            font-size: 1.2em;
+            color: #00ff00;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-email:hover {
+            color: #00cc00;
+            text-decoration: underline;
+            text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+        }
+
+        .supplement-icon {
+            display: inline-block;
+            margin: 0 10px;
+            animation: bounce 1.5s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-8px); }
+            60% { transform: translateY(-4px); }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .header h1 {
+                margin-left: 0;
+                margin-top: 20px;
+                font-size: 2.2em;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+            
+            .main-content {
+                padding: 20px;
+            }
+            
+            .video-container iframe {
+                height: 300px;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <span class="logo-icon"><img width="100" height="100" src="logo.jpg" alt=""></span>
+            </div>
+            <h1>RoyalSupplements</h1>
+        </div>
+        
+        <div class="main-content">
+            <div class="hero-section">
+                <h2>Tu Tienda de Suplementos de Confianza <span class="supplement-icon">💪</span></h2>
+                <p>Descubre la mejor selección de suplementos deportivos y nutricionales para alcanzar tus objetivos fitness. Calidad garantizada, resultados comprobados.</p>
+            </div>
+            
+            <div class="video-section">
+                <h2>Todo sobre Suplementos Deportivos</h2>
+                <p style="color: #ccc; margin-bottom: 30px;">Encuentra todos los suplementos</p>
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/RCk7f9urHX4" 
+                            title="Suplementos Deportivos" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                            allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+            
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-icon">🥤</div>
+                    <h3>Proteínas</h3>
+                    <p>Whey protein, caseína y proteínas vegetales de la más alta calidad para el desarrollo muscular.</p>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-icon">⚡</div>
+                    <h3>Pre-Entrenos</h3>
+                    <p>Fórmulas avanzadas para maximizar tu energía y rendimiento en cada sesión de entrenamiento.</p>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-icon">🧬</div>
+                    <h3>Creatina</h3>
+                    <p>Aumenta tu fuerza y potencia con nuestras creatinas monohidrato y de última generación.</p>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-icon">🌿</div>
+                    <h3>Vitaminas</h3>
+                    <p>Complejos vitamínicos y minerales para optimizar tu salud y bienestar general.</p>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-icon">🔥</div>
+                    <h3>Quemadores</h3>
+                    <p>Termogénicos naturales para acelerar tu metabolismo y alcanzar tus objetivos de peso.</p>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-icon">💊</div>
+                    <h3>Aminoácidos</h3>
+                    <p>BCAA, glutamina y aminoácidos esenciales para la recuperación y el crecimiento muscular.</p>
+                </div>
+            </div>
+            
+            <div class="cta-section">
+                <h2>¡Transforma tu Físico Hoy!</h2>
+                <p style="font-size: 1.2em; margin-bottom: 25px;">Únete a miles de atletas que confían en nosotros para alcanzar sus metas</p>
+                <a href="#" class="cta-button">Comprar Ahora</a>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div class="footer-content">
+                <div class="footer-title">Conceptualización de servicios en la nube</div>
+                <div class="footer-name">Carlos Adrian Figueroa Solano</div>
+                <div class="footer-id">223983648</div>
+                <a href="mailto:elmototloco300@gmail.com" class="footer-email">elmototloco300@gmail.com</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
